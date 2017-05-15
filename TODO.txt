@@ -1,0 +1,5 @@
+
+15.05
+
+8. Create numbers[].png
+9. Create GameManager::check(); 50%
