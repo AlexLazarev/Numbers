@@ -10,9 +10,10 @@ public:
     Field();
     ~Field();
     int getCell( int x, int y );
+    int getCell(int n);
     void setCell( int x, int y, int cell );
     void clear();
-    QPoint convertToIndex(const QPoint& pos );
+    void delRow(int,int);
 
     void mixNumbers(int count);
 

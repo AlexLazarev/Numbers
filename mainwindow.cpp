@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     field = new Field();
 
     field->clear();
-    field->mixNumbers(15); // TODO: function into gm from field
+    field->mixNumbers(45); // TODO: function into gm from field
 
     gm = new GameManager(field);
 
@@ -91,7 +91,7 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
     pos.setY( pos.y() - this->centralWidget()->y());
 
 
-    gm->check(pos);
+    gm->step(pos);
 
     this->update();
 }

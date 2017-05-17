@@ -1,5 +1,10 @@
 
 15.05
-
 8. Create numbers[].png
-9. Create GameManager::check(); 50%
+9. Create GameManager::check(); 100% but some problems with coordinate system
+
+17.05
+12. add menu scene 
+13. add score 
+14. add timer
+15. add helper

@@ -7,13 +7,15 @@ class GameManager
 {
 public:
     GameManager(Field*);
-    void check(QPoint);
+    void step(QPoint coordCell);
 
 private:
     QPoint convertToIndex(const QPoint& pos );
+    bool checkCorrect(QPoint index);
     bool isFirstSelected;
     Field *field;
     QPoint preindex;
+    QVector<int> workcell;
 };
 
 #endif // GAMEMANAGER_H
