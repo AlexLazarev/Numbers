@@ -8,8 +8,9 @@ class GameManager
 public:
     GameManager(Field*);
     void step(QPoint coordCell);
-
+    void addCells();
 private:
+    void updateWorkCell();
     QPoint convertToIndex(const QPoint& pos );
     bool checkCorrect(QPoint index);
     bool isFirstSelected;

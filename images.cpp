@@ -21,6 +21,7 @@ void Images::load(){
    images.insert("eight",QImage(":/images/eight.png"));
    images.insert("nine",QImage(":/images/nine.png"));
 
+
    images.insert("full",QImage(":/images/full.png"));
 
    isLoaded = true;

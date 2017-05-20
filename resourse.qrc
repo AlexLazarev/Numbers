@@ -11,5 +11,6 @@
         <file>images/nine.png</file>
         <file>images/seven.png</file>
         <file>images/six.png</file>
+        <file>images/buttom_add.png</file>
     </qresource>
 </RCC>

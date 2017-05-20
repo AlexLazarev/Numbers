@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "defines.h"
+#include <QGraphicsView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    scene = new QGraphicsScene(); //TODO: xm
+
     pictures = new Images();
     pictures->load();
 
@@ -16,9 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     field = new Field();
 
     field->clear();
-    field->mixNumbers(45); // TODO: function into gm from field
+    field->mixNumbers(30); // TODO: function into gm from field
 
     gm = new GameManager(field);
+
 
     this->update();
 }
@@ -49,9 +53,12 @@ QImage MainWindow::getFieldImage(){
     double cfx = FIELD_WIDTH / 10.0;
     double cfy = FIELD_HEIGHT / 10.0;
 
+    int countRow = field->getCountRow();
 
-    for( int i = 0; i < 10; i++ )
-        for( int j = 0; j < 10; j++ ) {
+    qDebug() << "Row: " << countRow;
+
+    for( int j = 0; j < countRow; j++ )
+        for( int i = 0; i < COUNT_COLUMN ; i++ ) {
             cell = field->getCell(i,j);
 
             switch( cell ) {
@@ -96,5 +103,15 @@ void MainWindow::mousePressEvent(QMouseEvent *ev){
     this->update();
 }
 
+QGraphicsScene MainWindow::getScene(){
+    return scene;
+}
 
 
+
+
+void MainWindow::on_addButton_clicked()
+{
+    gm->addCells();
+    this->update();
+}

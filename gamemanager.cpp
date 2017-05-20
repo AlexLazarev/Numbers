@@ -4,8 +4,32 @@ GameManager::GameManager(Field *f) : field(f), isFirstSelected(false)
 {
 }
 
+//TODO: checkCorrect with workCell
+void GameManager::addCells(){
+    updateWorkCell();
 
-//TODO: add sum 10, add check of click the same cell
+    for(auto i: workcell)
+        field->addCell(i);
+}
+
+void GameManager::updateWorkCell(){
+    int cell;
+
+    for(int i = 0; i < field->getFieldSize(); i++){
+        cell = field->getCell(i);
+
+        if(cell == 0)
+            break;
+
+        if(cell != -1)
+            workcell.push_back(cell);
+    }
+
+    qDebug() << workcell.length();
+}
+
+
+
 void GameManager::step(QPoint coordCell){
     QPoint index = convertToIndex(coordCell);
 
@@ -16,9 +40,12 @@ void GameManager::step(QPoint coordCell){
     else{
         if(checkCorrect(index))
             if(
-                field->getCell(index.x(),index.y()) == field->getCell(preindex.x(),preindex.y()) ||
-                field->getCell(index.x(),index.y()) + field->getCell(preindex.x(),preindex.y()) == 10
+                (field->getCell(index.x(),index.y()) == field->getCell(preindex.x(),preindex.y()) ||   // '2'+'2'
+                 field->getCell(index.x(),index.y()) + field->getCell(preindex.x(),preindex.y()) == 10) && //'2'+'8" = '10'
+                 field->getCell(index.x(),index.y()) != 0  // empty cells = 0
+
             ){
+                //cells are crossed
                 field->setCell(index.x(),index.y(), -1);
                 field->setCell(preindex.x(),preindex.y(), -1);
             }
@@ -28,10 +55,11 @@ void GameManager::step(QPoint coordCell){
 
 
 bool GameManager::checkCorrect(QPoint index){
-
-   int n = index.y()*10+index.x(); //vector position
+   //vector position
+   int n = index.y()*10+index.x();
    int m = preindex.y() * 10 + preindex.x();
 
+   // check of click the same cell
    if( m == n)
        return false;
 

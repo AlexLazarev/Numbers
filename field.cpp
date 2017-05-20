@@ -7,17 +7,22 @@ Field::Field(){
 
 
 
-void Field::mixNumbers(int count){
-
+void Field::mixNumbers(int amt){
     srand(time(0));
-    for(int i = 0; i < count; i++)
-        cell[i] = rand()%10;
+
+    for(int i = 0; i < amt; i++)
+        cell.push_back(rand()%9+1);
 
 }
 
 void Field::delRow(int x, int y){
     int n = y * 10 + x;
     //TODO::Realize delete row
+}
+
+void Field::addCell(int c){
+    cell.push_back(c);
+    qDebug() << cell.size();
 }
 
 
@@ -45,9 +50,21 @@ void Field::setCell(int x, int y, int num ){
         cell[n] = num;
 }
 
-void Field::clear(){
-    cell.fill( 0, 100 );
+int Field::getFieldSize(){
+    return cell.size();
 }
+
+int Field::getCountRow(){
+    if(cell.size() % COUNT_COLUMN == 0)
+        return cell.size()/COUNT_COLUMN;
+
+    return cell.size()/COUNT_COLUMN+1;
+}
+
+void Field::clear(){
+
+}
+
 
 
 

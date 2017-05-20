@@ -12,6 +12,11 @@ public:
     int getCell( int x, int y );
     int getCell(int n);
     void setCell( int x, int y, int cell );
+    int getFieldSize();
+    int getCountRow();
+
+
+    void addCell(int);
     void clear();
     void delRow(int,int);
 

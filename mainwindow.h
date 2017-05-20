@@ -7,6 +7,7 @@
 #include <QPoint>
 #include <QMouseEvent>
 #include <QDebug>
+#include <QGraphicsScene>
 
 #include "images.h"
 #include "field.h"
@@ -25,14 +26,21 @@ class MainWindow :
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    bool operator()(const QPoint&,const QPoint&);
+
+    QGraphicsScene getScene();
+
 protected:
     void paintEvent( QPaintEvent* event );
     void mousePressEvent( QMouseEvent* ev );
 
 
 
+private slots:
+    void on_addButton_clicked();
+
 private:
+    QGraphicsScene *scene;
+
     QImage getFieldImage();
     Ui::MainWindow *ui;
     Images *pictures;
