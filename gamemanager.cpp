@@ -36,7 +36,7 @@ void GameManager::step(QPoint coordCell){
     qDebug() << "Cell selected " << index.x() << index.y();
 
     if(!isFirstSelected)
-        preindex = index;
+        preindex = index; // select first cell
     else{
         if(checkCorrect(index))
             if(
@@ -56,8 +56,8 @@ void GameManager::step(QPoint coordCell){
 
 bool GameManager::checkCorrect(QPoint index){
    //vector position
-   int n = index.y()*10+index.x();
-   int m = preindex.y() * 10 + preindex.x();
+   int n = index.y()*COUNT_COLUMN + index.x();
+   int m = preindex.y() * COUNT_COLUMN + preindex.x();
 
    // check of click the same cell
    if( m == n)
@@ -106,13 +106,13 @@ QPoint GameManager::convertToIndex(const QPoint &pos){
     QPoint res(-1,-1);
 
     if(
-        pos.x() < MYFIELD_X || pos.x() > (MYFIELD_X + FIELD_WIDTH) ||
-        pos.y() < MYFIELD_Y || pos.y() > (MYFIELD_Y + FIELD_HEIGHT)
+        pos.x() < FIELD_X || pos.x() > (FIELD_X + FIELD_WIDTH) ||
+        pos.y() < FIELD_Y
     )
         return res;
 
-    res.setX( 1.0 * (pos.x() - MYFIELD_X) / (0.1 * FIELD_WIDTH) );
-    res.setY( 1.0 * (pos.y() - MYFIELD_Y) / (0.1 * FIELD_HEIGHT) );
+    res.setX( 1.0 * (pos.x() - FIELD_X) / (0.1 * FIELD_WIDTH) );
+    res.setY( 1.0 * (pos.y() - FIELD_Y) / (0.1 * FIELD_HEIGHT) );
 
 
     return res;

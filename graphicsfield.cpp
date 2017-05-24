@@ -1,61 +1,52 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "graphicsfield.h"
 #include "defines.h"
-#include <QGraphicsView>
+#include "field.h"
+#include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+GraphicsField::GraphicsField(Images *p) : pictures(p)
 {
-
-    ui->setupUi(this);
-
-    scene = new QGraphicsScene(); //TODO: xm
-
-    pictures = new Images();
-    pictures->load();
-
-
     field = new Field();
-
-    field->clear();
-    field->mixNumbers(30); // TODO: function into gm from field
-
+    field->mixNumbers(32);
     gm = new GameManager(field);
 
-
-    this->update();
 }
 
-MainWindow::~MainWindow(){
-    delete pictures;
-    delete ui;
-}
-
-void MainWindow::paintEvent(QPaintEvent *event){
-    Q_UNUSED(event);
-    static const int deltaY = this->centralWidget()->y();
-
-    QPainter painter(this);
-    painter.drawImage(0, deltaY,pictures->getImage("field"));
-    painter.drawImage( MYFIELD_X, MYFIELD_Y + deltaY, getFieldImage() );
-
+QRectF GraphicsField::boundingRect() const{
+    return QRectF(FIELD_X,FIELD_Y,FIELD_WIDTH,FIELD_HEIGHT);
 }
 
 
+void GraphicsField::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    painter->drawImage(0, 0, pictures->getImage("field"));
+    painter->drawImage(FIELD_X, FIELD_Y, getFieldImage());
 
-QImage MainWindow::getFieldImage(){
-    QImage image( FIELD_WIDTH, FIELD_HEIGHT, QImage::Format_ARGB32 );
-    int cell;
-    image.fill( 0 );
-    QPainter painter( &image );
+}
+
+void GraphicsField::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
+
+    int x = event->scenePos().x(); // convert to int from float
+    int y = event->scenePos().y();
+
+    gm->step(QPoint(x,y));
+
+    update();
+
+}
+
+
+QImage GraphicsField::getFieldImage(){
+    int countRow = field->getCountRow();
 
     double cfx = FIELD_WIDTH / 10.0;
     double cfy = FIELD_HEIGHT / 10.0;
 
-    int countRow = field->getCountRow();
+    QImage image( FIELD_WIDTH, countRow*cfy, QImage::Format_ARGB32 );
+    int cell;
+    image.fill( 0 );
+    QPainter painter( &image );
 
-    qDebug() << "Row: " << countRow;
+
 
     for( int j = 0; j < countRow; j++ )
         for( int i = 0; i < COUNT_COLUMN ; i++ ) {
@@ -83,7 +74,7 @@ QImage MainWindow::getFieldImage(){
                  painter.drawImage( i * cfx, j * cfy, pictures->getImage("nine")); break;
             case -1:
                 painter.drawImage( i * cfx, j * cfy, pictures->getImage("full")); break;
-            default:             
+            default:
                 break;
             }
         }
@@ -91,27 +82,3 @@ QImage MainWindow::getFieldImage(){
 }
 
 
-
-void MainWindow::mousePressEvent(QMouseEvent *ev){
-
-    QPoint pos = ev->pos();
-    pos.setY( pos.y() - this->centralWidget()->y());
-
-
-    gm->step(pos);
-
-    this->update();
-}
-
-QGraphicsScene MainWindow::getScene(){
-    return scene;
-}
-
-
-
-
-void MainWindow::on_addButton_clicked()
-{
-    gm->addCells();
-    this->update();
-}

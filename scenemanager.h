@@ -1,18 +1,30 @@
 #pragma once
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QWidget>
+#include <QMouseEvent>
 
 
-class SceneManager
+#include "images.h"
+
+
+class SceneManager : public QGraphicsView
 {
+    Q_OBJECT
+
+
 public:
-    SceneManager();
+    SceneManager(QWidget * parent = NULL);
+    ~SceneManager();
+
+public slots:
     void showMenu();
-    void showSplash();
+
     void showGame();
 
 private:
-    QGraphicsView *view;
 
+    QGraphicsScene *scene;
+    Images *pictures;
 };
 

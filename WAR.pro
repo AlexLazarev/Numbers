@@ -24,18 +24,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     field.cpp \
     images.cpp \
     gamemanager.cpp \
-    scenemanager.cpp
+    scenemanager.cpp \
+    graphicsfield.cpp \
+    button.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     field.h \
     images.h \
     defines.h \
     gamemanager.h \
-    scenemanager.h
+    scenemanager.h \
+    graphicsfield.h \
+    button.h
 
 FORMS    += mainwindow.ui
 

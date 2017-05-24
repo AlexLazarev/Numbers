@@ -10,6 +10,7 @@ public:
     void step(QPoint coordCell);
     void addCells();
 private:
+    void selectCell();
     void updateWorkCell();
     QPoint convertToIndex(const QPoint& pos );
     bool checkCorrect(QPoint index);

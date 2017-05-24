@@ -17,6 +17,7 @@ void Field::mixNumbers(int amt){
 
 void Field::delRow(int x, int y){
     int n = y * 10 + x;
+    n += n;
     //TODO::Realize delete row
 }
 
@@ -46,7 +47,7 @@ int Field::getCell(int n){
 void Field::setCell(int x, int y, int num ){
     int n = y * 10 + x;
 
-    if(x >= 0 && y >= 0 && x < 10 && y < 10)
+    if(x >= 0 && y >= 0 && x < COUNT_COLUMN)
         cell[n] = num;
 }
 
