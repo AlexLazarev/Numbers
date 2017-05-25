@@ -27,18 +27,18 @@ SOURCES += main.cpp\
     field.cpp \
     images.cpp \
     gamemanager.cpp \
-    scenemanager.cpp \
     graphicsfield.cpp \
-    button.cpp
+    button.cpp \
+    game.cpp
 
 HEADERS  += \
     field.h \
     images.h \
     defines.h \
     gamemanager.h \
-    scenemanager.h \
     graphicsfield.h \
-    button.h
+    button.h \
+    game.h
 
 FORMS    += mainwindow.ui
 

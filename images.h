@@ -1,5 +1,4 @@
-#ifndef IMAGES_H
-#define IMAGES_H
+#pragma once
 
 #include <QMap>
 #include <QImage>
@@ -12,10 +11,11 @@ public:
 
     void load();
     QImage &getImage(const QString& imgName);
+
+
 private:
     QMap<QString,QImage> images;
     bool isLoaded;
 
 };
 
-#endif // IMAGES_H

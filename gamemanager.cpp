@@ -8,7 +8,7 @@ GameManager::GameManager(Field *f) : field(f), isFirstSelected(false)
 void GameManager::addCells(){
     updateWorkCell();
 
-    for(auto i: workcell)
+    for(auto i: newcell)
         field->addCell(i);
 }
 
@@ -22,10 +22,10 @@ void GameManager::updateWorkCell(){
             break;
 
         if(cell != -1)
-            workcell.push_back(cell);
+            newcell.push_back(cell);
     }
 
-    qDebug() << workcell.length();
+    qDebug() << newcell.length();
 }
 
 

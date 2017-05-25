@@ -2,8 +2,8 @@
 
 
 
-Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent){
-    setRect(0,0,150,50);
+Button::Button(QString name,int width, int height, QGraphicsItem *parent):QGraphicsRectItem(parent){
+    setRect(0,0,width,height);
 
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::darkCyan);
@@ -34,4 +34,8 @@ void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
 
     brush.setColor(Qt::darkCyan);
     setBrush(brush);
+}
+
+Button::~Button(){
+    delete text;
 }

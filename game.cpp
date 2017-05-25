@@ -1,9 +1,9 @@
-#include "scenemanager.h"
+#include "game.h"
 #include <graphicsfield.h>
 
 #include "button.h"
 
-SceneManager::SceneManager(QWidget *parent){
+Game::Game(QWidget *parent):QGraphicsView(parent){
 
    setFixedSize(WINDOW_HEIGHT,WINDOW_WIDTH);
 
@@ -16,11 +16,13 @@ SceneManager::SceneManager(QWidget *parent){
    pictures = new Images();
    pictures->load();
 
+
+
    setScene(scene);
 
 }
 
-void SceneManager::showMenu(){
+void Game::showMenu(){
     scene->clear();
 
     QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("NUMBERS"));
@@ -34,8 +36,8 @@ void SceneManager::showMenu(){
     titleText->setPos(tx,ty);
 
 
-    Button *playButton = new Button(QString("PLAY"));
-    Button *exitButton = new Button(QString("EXIT"));
+    Button *playButton = new Button(QString("PLAY"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+    Button *exitButton = new Button(QString("EXIT"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 
     int bx = this->width()/2 - playButton->boundingRect().width()/2;
     int by = 260;
@@ -56,16 +58,26 @@ void SceneManager::showMenu(){
 
 }
 
-void SceneManager::showGame(){
+
+
+void Game::showGame(){
     scene->clear();
 
     GraphicsField *fieldItem = new GraphicsField(pictures);
-    scene->addItem(fieldItem);
 
+    Button *updateButton = new Button(QString("Update"),50,20);
+    updateButton->setPos(100,0);
+
+
+    connect(updateButton,SIGNAL(clicked()),fieldItem,SLOT(addCells()));
+
+
+    scene->addItem(fieldItem);
+    scene->addItem(updateButton);
     setScene(scene);
 }
 
-SceneManager::~SceneManager(){
+Game::~Game(){
     delete scene;
     delete pictures;
 }

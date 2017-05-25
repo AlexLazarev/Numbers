@@ -34,6 +34,12 @@ void GraphicsField::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 }
 
+void GraphicsField::addCells(){
+    gm->addCells();
+
+    update();
+}
+
 
 QImage GraphicsField::getFieldImage(){
     int countRow = field->getCountRow();

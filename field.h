@@ -1,6 +1,6 @@
 #pragma once
-#include "images.h"
 #include <QPoint>
+#include <QVector>
 #include "defines.h"
 
 
@@ -26,5 +26,4 @@ private:
     QVector<int> cell;
 };
 
-//TODO: convertToIndex -> external function
 

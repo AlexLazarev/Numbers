@@ -8,14 +8,14 @@
 #include "images.h"
 
 
-class SceneManager : public QGraphicsView
+class Game : public QGraphicsView
 {
     Q_OBJECT
 
 
 public:
-    SceneManager(QWidget * parent = NULL);
-    ~SceneManager();
+    Game(QWidget * parent = NULL);
+    ~Game();
 
 public slots:
     void showMenu();

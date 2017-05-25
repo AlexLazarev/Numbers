@@ -1,24 +1,31 @@
-#ifndef GRAPHICSFIELD_H
-#define GRAPHICSFIELD_H
+#pragma once
 #include <QPainter>
-#include <QGraphicsItem>
+#include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
 #include "field.h"
 #include "gamemanager.h"
 #include "images.h"
 
-class GraphicsField : public QGraphicsItem
+class GraphicsField : public QObject, public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
     GraphicsField(Images *p);
 
     QRectF boundingRect() const;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = NULL);
+
+    void mousePressEvent(QGraphicsSceneMouseEvent*);
+
+
+public slots:
+    void addCells();
+
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent*);
+
 
 private:
     QImage getFieldImage();
@@ -27,4 +34,3 @@ private:
     Images *pictures;
 };
 
-#endif // GRAPHICSFIELD_H

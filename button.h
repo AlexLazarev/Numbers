@@ -1,15 +1,15 @@
-#ifndef BUTTOM_H
-#define BUTTOM_H
+#pragma once
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QBrush>
 
-class Button:public QObject, public QGraphicsRectItem
+class Button : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
 
-    Button(QString name, QGraphicsItem *parent = NULL);
+    Button(QString name, int width, int height, QGraphicsItem *parent = NULL);
+    ~Button();
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
@@ -24,4 +24,4 @@ private:
 
 };
 
-#endif // BUTTOM_H
+
