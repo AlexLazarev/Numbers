@@ -1,16 +1,20 @@
 #include "game.h"
 #include <graphicsfield.h>
+#include <QGroupBox>
 
 #include "button.h"
+#include "score.h"
 
 Game::Game(QWidget *parent):QGraphicsView(parent){
 
-   setFixedSize(WINDOW_HEIGHT,WINDOW_WIDTH);
+   setFixedSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 
    scene = new QGraphicsScene();
 
 
-   scene->setSceneRect(0,0,WINDOW_HEIGHT-10,WINDOW_WIDTH-10);
+
+
+
 
 
    pictures = new Images();
@@ -24,6 +28,10 @@ Game::Game(QWidget *parent):QGraphicsView(parent){
 
 void Game::showMenu(){
     scene->clear();
+
+
+
+    scene->setSceneRect(0,0,WINDOW_WIDTH-10,WINDOW_HEIGHT-10);
 
     QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("NUMBERS"));
     QFont titleFont("comic sans", 50);
@@ -63,17 +71,29 @@ void Game::showMenu(){
 void Game::showGame(){
     scene->clear();
 
+    scene->setSceneRect(0,0,WINDOW_WIDTH-20,MAX_HEIGHT);
+
+    Score *score = new Score();
+    score->setPos(300,0);
+
+
     GraphicsField *fieldItem = new GraphicsField(pictures);
 
-    Button *updateButton = new Button(QString("Update"),50,20);
+    Button *updateButton = new Button(QString("Update"), 50, 20);
+    Button *delButton = new Button(QString("Delete"), 50, 20);
     updateButton->setPos(100,0);
+    delButton->setPos(160,0);
+
+
 
 
     connect(updateButton,SIGNAL(clicked()),fieldItem,SLOT(addCells()));
-
+    connect(delButton,SIGNAL(clicked()),fieldItem,SLOT(delRow()));
 
     scene->addItem(fieldItem);
     scene->addItem(updateButton);
+    scene->addItem(delButton);
+    scene->addItem(score);
     setScene(scene);
 }
 

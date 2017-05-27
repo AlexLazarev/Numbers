@@ -10,7 +10,7 @@ Button::Button(QString name,int width, int height, QGraphicsItem *parent):QGraph
     setBrush(brush);
 
     text = new QGraphicsTextItem(name,this);
-    int x = rect().width()/2 -text->boundingRect().width()/2;
+    int x = rect().width()/2 - text->boundingRect().width()/2;
     int y = rect().height()/2 - text->boundingRect().height()/2;
     text->setPos(x,y);
 

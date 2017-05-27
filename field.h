@@ -9,16 +9,16 @@ class Field
 public:
     Field();
     ~Field();
-    int getCell( int x, int y );
-    int getCell(int n);
+    int getCell( int x, int y ) const;
+    int getCell(int n) const;
     void setCell( int x, int y, int cell );
-    int getFieldSize();
-    int getCountRow();
+    int getFieldSize() const;
+    int getCountRow() const;
 
 
     void addCell(int);
-    void clear();
-    void delRow(int,int);
+
+    void delRow(int);
 
     void mixNumbers(int count);
 

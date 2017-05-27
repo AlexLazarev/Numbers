@@ -1,12 +1,4 @@
-
-15.05
-8. Create numbers[].png
-
-17.05
-11. add helper
-12. add menu scene 
-13. add score 
-14. add timer
-
-20.05
-16. add scroll scene
+1. Timer
+2. Score increase
+3. Create AI
+4. GameOver Scene

@@ -4,15 +4,11 @@ GameManager::GameManager(Field *f) : field(f), isFirstSelected(false)
 {
 }
 
-//TODO: checkCorrect with workCell
-void GameManager::addCells(){
-    updateWorkCell();
 
-    for(auto i: newcell)
-        field->addCell(i);
-}
 
-void GameManager::updateWorkCell(){
+
+ void GameManager::addCells(){
+    QVector<int> newcell;
     int cell;
 
     for(int i = 0; i < field->getFieldSize(); i++){
@@ -25,15 +21,45 @@ void GameManager::updateWorkCell(){
             newcell.push_back(cell);
     }
 
-    qDebug() << newcell.length();
+
+    for(auto i: newcell)
+        field->addCell(i);
+ }
+
+ bool GameManager::getIsCroosed()
+ {
+     return isCrossed;
+ }
+
+
+
+
+void GameManager::delRow(){
+    int k;
+
+    for(int i = 0; i < field->getCountRow(); i++){
+        k = 0;
+        for(int j = 0; j < COUNT_COLUMN; j++){
+            if(field->getCell(i,j) == -1)
+                 k++;
+            else
+                break;
+
+            if(k == COUNT_COLUMN){
+                field->delRow(i);
+                i--;
+            }
+        }
+    }
 }
 
 
-
 void GameManager::step(QPoint coordCell){
+    isCrossed = false;
+
     QPoint index = convertToIndex(coordCell);
 
-    qDebug() << "Cell selected " << index.x() << index.y();
+    qDebug() << "Cell selected " << index.x() << index.y() << field->getCell(index.x(), index.y());
 
     if(!isFirstSelected)
         preindex = index; // select first cell
@@ -48,16 +74,21 @@ void GameManager::step(QPoint coordCell){
                 //cells are crossed
                 field->setCell(index.x(),index.y(), -1);
                 field->setCell(preindex.x(),preindex.y(), -1);
-            }
+                isCrossed = true;
+            }       
         }
+
+
     isFirstSelected = !isFirstSelected;
 }
 
 
+
+
 bool GameManager::checkCorrect(QPoint index){
    //vector position
-   int n = index.y()*COUNT_COLUMN + index.x();
-   int m = preindex.y() * COUNT_COLUMN + preindex.x();
+   int n = index.x()*COUNT_COLUMN + index.y();
+   int m = preindex.x() * COUNT_COLUMN + preindex.y();
 
    // check of click the same cell
    if( m == n)
@@ -65,16 +96,16 @@ bool GameManager::checkCorrect(QPoint index){
 
 
    //check of column
-   if(index.x() == preindex.x()){  // maybe I mixed up 'x' and 'y'
+   if(index.y() == preindex.y()){
        if(m < n)
-           for(int i = preindex.y()+1; i < index.y(); i++ ){
-               if(field->getCell(index.x(),i) != -1)
+           for(int i = preindex.x()+1; i < index.x(); i++ ){
+               if(field->getCell(i,index.y()) != -1)
                    return false;
            }
        else
            if(m > n)
-               for(int i = index.y()+1; i < preindex.y(); i++ ){
-                   if(field->getCell(index.x(),i) != -1)
+               for(int i = index.x()+1; i < preindex.x(); i++ ){
+                   if(field->getCell(i, index.y()) != -1)
                        return false;
                }
        return true;
@@ -111,9 +142,15 @@ QPoint GameManager::convertToIndex(const QPoint &pos){
     )
         return res;
 
-    res.setX( 1.0 * (pos.x() - FIELD_X) / (0.1 * FIELD_WIDTH) );
-    res.setY( 1.0 * (pos.y() - FIELD_Y) / (0.1 * FIELD_HEIGHT) );
+    res.setY( 1.0 * (pos.x() - FIELD_X) / (0.1 * FIELD_WIDTH) );
+    res.setX( 1.0 * (pos.y() - FIELD_Y) / (0.1 * FIELD_HEIGHT) );
 
 
     return res;
+}
+
+QPoint GameManager::getSellectedIndex() const{
+    if(isFirstSelected)
+        return preindex;
+    return QPoint(-1,-1);
 }

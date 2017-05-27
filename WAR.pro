@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     gamemanager.cpp \
     graphicsfield.cpp \
     button.cpp \
-    game.cpp
+    game.cpp \
+    score.cpp
 
 HEADERS  += \
     field.h \
@@ -38,7 +39,8 @@ HEADERS  += \
     gamemanager.h \
     graphicsfield.h \
     button.h \
-    game.h
+    game.h \
+    score.h
 
 FORMS    += mainwindow.ui
 

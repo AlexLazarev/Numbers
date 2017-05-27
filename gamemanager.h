@@ -8,19 +8,25 @@ public:
     GameManager(Field*);
     void step(QPoint coordCell);
 
+    void delRow();
     void addCells();
+    bool getIsCroosed(); //XM
+
+
+    QPoint getSellectedIndex() const;
+
 private:
-    void selectCell();
-    void updateWorkCell();
+
     QPoint convertToIndex(const QPoint& pos );
 
     bool checkCorrect(QPoint index);
     bool isFirstSelected;
+    bool isCrossed;
 
     Field *field;
-
     QPoint preindex;
-    QVector<int> newcell;
 };
+
+
 
 
