@@ -6,12 +6,14 @@
 #include "field.h"
 #include "gamemanager.h"
 #include "images.h"
+#include "score.h"
 
-class GraphicsField : public QObject, public QGraphicsItem
+class FieldItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    GraphicsField(Images *p);
+    FieldItem(Images *p);
+    ~FieldItem();
 
     QRectF boundingRect() const;
 
@@ -20,8 +22,12 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 public slots:
+    void help();
     void addCells();
     void delRow();
+
+signals:
+    void valueChanged(int);
 
 
 protected:
@@ -32,5 +38,6 @@ private:
     Field *field;
     GameManager *gm;
     Images *pictures;
+
 };
 

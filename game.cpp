@@ -1,9 +1,10 @@
 #include "game.h"
-#include <graphicsfield.h>
 #include <QGroupBox>
 
+#include "fieldItem.h"
 #include "button.h"
 #include "score.h"
+#include "timer.h"
 
 Game::Game(QWidget *parent):QGraphicsView(parent){
 
@@ -76,24 +77,34 @@ void Game::showGame(){
     Score *score = new Score();
     score->setPos(300,0);
 
+    Timer *timer = new Timer();
+    timer->setPos(430,0);
 
-    GraphicsField *fieldItem = new GraphicsField(pictures);
+    FieldItem *field = new FieldItem(pictures); // Hm: mb wrong way, but...
 
     Button *updateButton = new Button(QString("Update"), 50, 20);
     Button *delButton = new Button(QString("Delete"), 50, 20);
-    updateButton->setPos(100,0);
-    delButton->setPos(160,0);
+    Button *helpButton = new Button(QString("Help"),50,20);
 
 
 
+    updateButton->setPos(60,0);
+    delButton->setPos(120,0);
+    helpButton->setPos(180,0);
 
-    connect(updateButton,SIGNAL(clicked()),fieldItem,SLOT(addCells()));
-    connect(delButton,SIGNAL(clicked()),fieldItem,SLOT(delRow()));
 
-    scene->addItem(fieldItem);
+    connect(field,SIGNAL(valueChanged(int)),score,SLOT(increase(int)));
+    connect(updateButton,SIGNAL(clicked()),field,SLOT(addCells()));
+    connect(delButton,SIGNAL(clicked()),field,SLOT(delRow()));
+    connect(helpButton,SIGNAL(clicked()),field,SLOT(help()));
+
+    scene->addItem(field);
     scene->addItem(updateButton);
     scene->addItem(delButton);
+    scene->addItem(helpButton);
     scene->addItem(score);
+    scene->addItem(timer);
+
     setScene(scene);
 }
 

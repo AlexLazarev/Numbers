@@ -18,3 +18,5 @@ const int MENU_BUTTON_HEIGHT = 50;
 const int COUNT_COLUMN = 10;
 
 const int MAX_HEIGHT = 3600;
+
+const int TIME_COUNT = 400;

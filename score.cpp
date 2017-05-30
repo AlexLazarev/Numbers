@@ -7,19 +7,19 @@ Score::Score(QGraphicsItem *parent): QGraphicsTextItem(parent){
     // initialize the coinCount to 0
     scoreCount = 0;
 
-    setPlainText(QString("Score ") + QString::number(scoreCount));
+    setPlainText(QString("Score: ") + QString::number(scoreCount));
     setDefaultTextColor(Qt::black);
-    setFont(QFont("Helvetica",30));
+    setFont(QFont("Helvetica",20));
 
 
 }
 
-void Score::increase(){
-    scoreCount += 10;
-    setPlainText(QString("Score ") + QString::number(scoreCount * 15));
+void Score::increase(int score){
+    scoreCount += score;
+    setPlainText(QString("Score ") + QString::number(scoreCount));
 
 }
 
-int Score::getScore(){
+int Score::getScore() const{
     return scoreCount;
 }

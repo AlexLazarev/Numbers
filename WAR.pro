@@ -27,20 +27,22 @@ SOURCES += main.cpp\
     field.cpp \
     images.cpp \
     gamemanager.cpp \
-    graphicsfield.cpp \
     button.cpp \
     game.cpp \
-    score.cpp
+    score.cpp \
+    timer.cpp \
+    fieldItem.cpp
 
 HEADERS  += \
     field.h \
     images.h \
     defines.h \
     gamemanager.h \
-    graphicsfield.h \
     button.h \
     game.h \
-    score.h
+    score.h \
+    timer.h \
+    fieldItem.h
 
 FORMS    += mainwindow.ui
 

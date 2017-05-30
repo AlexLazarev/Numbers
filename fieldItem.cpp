@@ -1,9 +1,9 @@
-#include "graphicsfield.h"
+#include "fieldItem.h"
 #include "defines.h"
 #include "field.h"
 #include <QDebug>
 
-GraphicsField::GraphicsField(Images *p) : pictures(p)
+FieldItem::FieldItem(Images *p) : pictures(p)
 {
     field = new Field();
     field->mixNumbers(10);
@@ -11,12 +11,18 @@ GraphicsField::GraphicsField(Images *p) : pictures(p)
 
 }
 
-QRectF GraphicsField::boundingRect() const{
+FieldItem::~FieldItem(){
+    delete field;
+    delete gm;
+
+}
+
+QRectF FieldItem::boundingRect() const{
     return QRectF(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
 }
 
 
-void GraphicsField::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void FieldItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
@@ -25,7 +31,7 @@ void GraphicsField::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
 }
 
-void GraphicsField::mousePressEvent(QGraphicsSceneMouseEvent *event){
+void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 
     int x = event->scenePos().x(); // convert to int from float
@@ -33,18 +39,26 @@ void GraphicsField::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
     gm->step(QPoint(x,y));
 
+    if(gm->getIsCroosed())
+        emit valueChanged(10);
+
     update();
 
 }
 
-void GraphicsField::addCells(){
+void FieldItem::help(){
+    gm->help();
+
+    update();
+}
+
+void FieldItem::addCells(){
     gm->addCells();
 
     update();
 }
 
-void GraphicsField::delRow()
-{
+void FieldItem::delRow(){
     gm->delRow();
 
     update();
@@ -52,14 +66,12 @@ void GraphicsField::delRow()
 
 
 
-QImage GraphicsField::getFieldImage(){
+
+
+QImage FieldItem::getFieldImage(){
     int countRow = field->getCountRow();
 
-    // DEBUG
-    static int i = 0;
-    i++;
-    qDebug() << "DRAW" << i;
-    //
+
 
     double cwh = FIELD_WIDTH / COUNT_COLUMN; // cell width and height
 
@@ -106,6 +118,25 @@ QImage GraphicsField::getFieldImage(){
 
         }
 
+
+    //fill AIselectedcell
+    if(gm->getAIactive()){
+        painter.setPen(QPen(Qt::green,2));
+
+        painter.drawRect(gm->getAIfirstIndex().y() * cwh,
+                         gm->getAIfirstIndex().x() * cwh,
+                         CELL_WIDTH,
+                         CELL_HEIGHT);
+
+        painter.drawRect(gm->getAIsecondIndex().y() * cwh,
+                         gm->getAIsecondIndex().x() * cwh,
+                         CELL_WIDTH,
+                         CELL_HEIGHT);
+    }
+
+
+
+    //fill selected cell
     if(gm->getSellectedIndex() != QPoint(-1,-1)){
         painter.setPen(QPen(Qt::red,2));
         painter.drawRect(gm->getSellectedIndex().y() * cwh,
@@ -113,6 +144,8 @@ QImage GraphicsField::getFieldImage(){
                          CELL_WIDTH,
                          CELL_HEIGHT);
     }
+
+
     return image;
 }
 

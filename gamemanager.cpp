@@ -1,13 +1,11 @@
 #include "gamemanager.h"
 #include <QDebug>
-GameManager::GameManager(Field *f) : field(f), isFirstSelected(false)
+GameManager::GameManager(Field *f) : field(f), isFirstSelected(false), AIactive(false)
 {
 }
 
 
-
-
- void GameManager::addCells(){
+void GameManager::addCells(){
     QVector<int> newcell;
     int cell;
 
@@ -24,12 +22,63 @@ GameManager::GameManager(Field *f) : field(f), isFirstSelected(false)
 
     for(auto i: newcell)
         field->addCell(i);
- }
+}
 
- bool GameManager::getIsCroosed()
- {
-     return isCrossed;
- }
+void GameManager::help(){
+    // create 2 vector without -1. first of vertical, second of horizontal
+    // or not
+
+    AIactive = true;
+
+    int firstCell, secondCell;
+
+    for(int i = 0; i < field->getFieldSize(); i++){
+        firstCell = field->getCell(i);
+
+        if(firstCell == -1)
+            continue;
+
+        //vertical search
+        for(int j = i+1; j < field->getFieldSize(); j++){
+
+            secondCell = field->getCell(j);
+
+            if(secondCell == -1)
+                continue;
+
+            if(firstCell == secondCell || (firstCell + secondCell) == 10){
+                AIfirstIndex = convertToIndex(i);
+                AIsecondIndex = convertToIndex(j);
+                qDebug() << AIfirstIndex << AIsecondIndex;
+                return;
+            }
+            else
+                break;
+
+        }
+        //horizontal search
+        for(int j = i/COUNT_COLUMN+1; j < field->getCountRow(); j++){
+
+            secondCell = field->getCell(j*COUNT_COLUMN + i%COUNT_COLUMN);
+
+            if(secondCell == -1)
+                continue;
+
+            if(firstCell == secondCell || (firstCell + secondCell) == 10){
+                AIfirstIndex = convertToIndex(i);
+                AIsecondIndex = convertToIndex(j*COUNT_COLUMN + i%COUNT_COLUMN);
+                qDebug() << AIfirstIndex << AIsecondIndex;
+                return;
+            }
+            else
+                break;
+
+
+        }
+    }
+
+    AIactive = false;
+}
 
 
 
@@ -54,6 +103,8 @@ void GameManager::delRow(){
 }
 
 
+
+
 void GameManager::step(QPoint coordCell){
     isCrossed = false;
 
@@ -75,6 +126,8 @@ void GameManager::step(QPoint coordCell){
                 field->setCell(index.x(),index.y(), -1);
                 field->setCell(preindex.x(),preindex.y(), -1);
                 isCrossed = true;
+
+                AIactive = false;
             }       
         }
 
@@ -149,8 +202,32 @@ QPoint GameManager::convertToIndex(const QPoint &pos){
     return res;
 }
 
+QPoint GameManager::convertToIndex(int n){
+    int x = n / COUNT_COLUMN;
+    int y = n % COUNT_COLUMN;
+
+    return QPoint(x,y);
+}
+
 QPoint GameManager::getSellectedIndex() const{
     if(isFirstSelected)
         return preindex;
     return QPoint(-1,-1);
+}
+
+bool GameManager::getIsCroosed(){
+    return isCrossed;
+}
+
+bool GameManager::getAIactive()
+{
+    return AIactive;
+}
+
+QPoint GameManager::getAIfirstIndex() const{
+    return AIfirstIndex;
+}
+
+QPoint GameManager::getAIsecondIndex() const{
+    return AIsecondIndex;
 }

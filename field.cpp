@@ -4,6 +4,10 @@
 Field::Field(){
 }
 
+Field::~Field(){
+
+}
+
 
 
 void Field::mixNumbers(int amt){
@@ -45,6 +49,7 @@ int Field::getCell(int n) const {
 
 void Field::setCell(int x, int y, int num ){
     int n = x * 10 + y;
+
 
     if(x >= 0 && y >= 0 && y < COUNT_COLUMN)
         cell[n] = num;
