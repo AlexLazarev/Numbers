@@ -11,18 +11,19 @@ void Images::load(){
         return;
 
    images.insert("field",QImage(":/images/background.png"));
-   images.insert("one",QImage(":/images/one.png"));
-   images.insert("two",QImage(":/images/two.png"));
-   images.insert("three",QImage(":/images/three.png"));
-   images.insert("four",QImage(":/images/four.png"));
-   images.insert("five",QImage(":/images/five.png"));
-   images.insert("six",QImage(":/images/six.png"));
-   images.insert("seven",QImage(":/images/seven.png"));
-   images.insert("eight",QImage(":/images/eight.png"));
-   images.insert("nine",QImage(":/images/nine.png"));
+   images.insert("one",QImage(":/images/img/one.png"));
+   images.insert("two",QImage(":/images/img/two.png"));
+   images.insert("three",QImage(":/images/img/three.png"));
+   images.insert("four",QImage(":/images/img/four.png"));
+   images.insert("five",QImage(":/images/img/five.png"));
+   images.insert("six",QImage(":/images/img/six.png"));
+   images.insert("seven",QImage(":/images/img/seven.png"));
+   images.insert("eight",QImage(":/images/img/eight.png"));
+   images.insert("nine",QImage(":/images/img/nine.png"));
 
+   images.insert("background",QImage(":/images/backgroundP.jpg"));
 
-   images.insert("full",QImage(":/images/full.png"));
+   images.insert("crossed",QImage(":/images/img/crossed.png"));
 
    isLoaded = true;
 }

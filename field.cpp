@@ -32,7 +32,7 @@ void Field::addCell(int c){
 
 
 int Field::getCell( int x, int y ) const {
-    int n = x * 10 + y;
+    int n = x * COUNT_COLUMN + y;
 
     if( n >= 0 && n < cell.size() )
         return cell[n];
@@ -48,7 +48,7 @@ int Field::getCell(int n) const {
 }
 
 void Field::setCell(int x, int y, int num ){
-    int n = x * 10 + y;
+    int n = x * COUNT_COLUMN + y;
 
 
     if(x >= 0 && y >= 0 && y < COUNT_COLUMN)

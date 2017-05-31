@@ -30,9 +30,15 @@ Game::Game(QWidget *parent):QGraphicsView(parent){
 void Game::showMenu(){
     scene->clear();
 
-
-
     scene->setSceneRect(0,0,WINDOW_WIDTH-10,WINDOW_HEIGHT-10);
+
+
+    QBrush brush;
+    brush.setTextureImage(pictures->getImage("background"));
+
+
+    scene->setBackgroundBrush(brush);
+
 
     QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("NUMBERS"));
     QFont titleFont("comic sans", 50);
@@ -72,7 +78,16 @@ void Game::showMenu(){
 void Game::showGame(){
     scene->clear();
 
-    scene->setSceneRect(0,0,WINDOW_WIDTH-20,MAX_HEIGHT);
+    scene->setSceneRect(0,0,WINDOW_WIDTH - 20,MAX_HEIGHT);
+
+
+    QBrush brush;
+    brush.setTextureImage(pictures->getImage("background"));
+
+
+    scene->setBackgroundBrush(brush);
+
+
 
     Score *score = new Score();
     score->setPos(300,0);

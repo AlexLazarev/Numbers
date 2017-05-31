@@ -49,7 +49,6 @@ void GameManager::help(){
             if(firstCell == secondCell || (firstCell + secondCell) == 10){
                 AIfirstIndex = convertToIndex(i);
                 AIsecondIndex = convertToIndex(j);
-                qDebug() << AIfirstIndex << AIsecondIndex;
                 return;
             }
             else
@@ -67,7 +66,6 @@ void GameManager::help(){
             if(firstCell == secondCell || (firstCell + secondCell) == 10){
                 AIfirstIndex = convertToIndex(i);
                 AIsecondIndex = convertToIndex(j*COUNT_COLUMN + i%COUNT_COLUMN);
-                qDebug() << AIfirstIndex << AIsecondIndex;
                 return;
             }
             else
@@ -151,13 +149,13 @@ bool GameManager::checkCorrect(QPoint index){
    //check of column
    if(index.y() == preindex.y()){
        if(m < n)
-           for(int i = preindex.x()+1; i < index.x(); i++ ){
+           for(int i = preindex.x()+1; i < index.x(); i++){
                if(field->getCell(i,index.y()) != -1)
                    return false;
            }
        else
            if(m > n)
-               for(int i = index.x()+1; i < preindex.x(); i++ ){
+               for(int i = index.x()+1; i < preindex.x(); i++){
                    if(field->getCell(i, index.y()) != -1)
                        return false;
                }
@@ -167,21 +165,19 @@ bool GameManager::checkCorrect(QPoint index){
 
    //check of row
    if (m < n)
-       for(int i = m+1; i < n; i++ ){
+       for(int i = m+1; i < n; i++){
            if(field->getCell(i) != -1)
                return false;
        }
    else
       if(m > n)
-          for(int i = n+1; i < m; i++ ){
+          for(int i = n+1; i < m; i++){
               if(field->getCell(i) != -1)
                   return false;
           }
 
 
    return true;
-
-
 }
 
 
@@ -195,9 +191,8 @@ QPoint GameManager::convertToIndex(const QPoint &pos){
     )
         return res;
 
-    res.setY( 1.0 * (pos.x() - FIELD_X) / (0.1 * FIELD_WIDTH) );
-    res.setX( 1.0 * (pos.y() - FIELD_Y) / (0.1 * FIELD_HEIGHT) );
-
+    res.setY( 1.0 * (pos.x() - FIELD_X) / CELL_WIDTH);
+    res.setX( 1.0 * (pos.y() - FIELD_Y) / CELL_HEIGHT);
 
     return res;
 }
@@ -219,8 +214,7 @@ bool GameManager::getIsCroosed(){
     return isCrossed;
 }
 
-bool GameManager::getAIactive()
-{
+bool GameManager::getAIactive(){
     return AIactive;
 }
 

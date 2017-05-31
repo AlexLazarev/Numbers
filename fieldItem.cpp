@@ -6,7 +6,7 @@
 FieldItem::FieldItem(Images *p) : pictures(p)
 {
     field = new Field();
-    field->mixNumbers(10);
+    field->mixNumbers(11);
     gm = new GameManager(field);
 
 }
@@ -18,7 +18,7 @@ FieldItem::~FieldItem(){
 }
 
 QRectF FieldItem::boundingRect() const{
-    return QRectF(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+    return QRectF(0,0,WINDOW_WIDTH,MAX_HEIGHT);
 }
 
 
@@ -26,7 +26,6 @@ void FieldItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawImage(0, 0, pictures->getImage("field"));
     painter->drawImage(FIELD_X, FIELD_Y, getFieldImage());
 
 }
@@ -48,6 +47,8 @@ void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void FieldItem::help(){
     gm->help();
+
+    qDebug() << field->getCountRow();
 
     update();
 }
@@ -71,46 +72,38 @@ void FieldItem::delRow(){
 QImage FieldItem::getFieldImage(){
     int countRow = field->getCountRow();
 
-
-
-    double cwh = FIELD_WIDTH / COUNT_COLUMN; // cell width and height
-
-    QImage image( FIELD_WIDTH, countRow*cwh, QImage::Format_ARGB32 );
+    QImage image( FIELD_WIDTH, countRow*CELL_HEIGHT, QImage::Format_ARGB32 );
 
     int cell;
     image.fill( 0 );
     QPainter painter(&image);
 
-
-
     for( int i = 0; i < countRow; i++ )
         for( int j = 0; j < COUNT_COLUMN; j++ ) {
             cell = field->getCell(i,j);
 
-
-
             switch( cell ) {
 
             case 1:
-                painter.drawImage( j * cwh, i * cwh, pictures->getImage("one")); break;
+                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("one")); break;
             case 2:
-                painter.drawImage( j * cwh, i * cwh, pictures->getImage("two")); break;
+                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("two")); break;
             case 3:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("three")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("three")); break;
             case 4:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("four")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("four")); break;
             case 5:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("five")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("five")); break;
             case 6:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("six")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("six")); break;
             case 7:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("seven")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("seven")); break;
             case 8:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("eight")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("eight")); break;
             case 9:
-                 painter.drawImage( j * cwh, i * cwh, pictures->getImage("nine")); break;
+                 painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("nine")); break;
             case -1:
-                painter.drawImage( j * cwh, i * cwh, pictures->getImage("full")); break;
+                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("crossed")); break;
             default:
                 break;
 
@@ -123,13 +116,13 @@ QImage FieldItem::getFieldImage(){
     if(gm->getAIactive()){
         painter.setPen(QPen(Qt::green,2));
 
-        painter.drawRect(gm->getAIfirstIndex().y() * cwh,
-                         gm->getAIfirstIndex().x() * cwh,
+        painter.drawRect(gm->getAIfirstIndex().y() * CELL_WIDTH,
+                         gm->getAIfirstIndex().x() * CELL_HEIGHT,
                          CELL_WIDTH,
                          CELL_HEIGHT);
 
-        painter.drawRect(gm->getAIsecondIndex().y() * cwh,
-                         gm->getAIsecondIndex().x() * cwh,
+        painter.drawRect(gm->getAIsecondIndex().y() * CELL_WIDTH,
+                         gm->getAIsecondIndex().x() * CELL_HEIGHT,
                          CELL_WIDTH,
                          CELL_HEIGHT);
     }
@@ -139,8 +132,8 @@ QImage FieldItem::getFieldImage(){
     //fill selected cell
     if(gm->getSellectedIndex() != QPoint(-1,-1)){
         painter.setPen(QPen(Qt::red,2));
-        painter.drawRect(gm->getSellectedIndex().y() * cwh,
-                         gm->getSellectedIndex().x() * cwh,
+        painter.drawRect(gm->getSellectedIndex().y() * CELL_WIDTH,
+                         gm->getSellectedIndex().x() * CELL_HEIGHT,
                          CELL_WIDTH,
                          CELL_HEIGHT);
     }
