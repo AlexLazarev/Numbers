@@ -6,22 +6,26 @@
 #include "score.h"
 #include "timer.h"
 
+#include "gamescene.h"
+
+
 Game::Game(QWidget *parent):QGraphicsView(parent){
 
    setFixedSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 
    scene = new QGraphicsScene();
 
-
-
-
-
-
+   gamescene = new GameScene();
 
    pictures = new Images();
    pictures->load();
 
 
+   QBrush brush;
+   brush.setTextureImage(pictures->getImage("background"));
+
+
+   scene->setBackgroundBrush(brush);
 
    setScene(scene);
 
@@ -30,14 +34,8 @@ Game::Game(QWidget *parent):QGraphicsView(parent){
 void Game::showMenu(){
     scene->clear();
 
-    scene->setSceneRect(0,0,WINDOW_WIDTH-10,WINDOW_HEIGHT-10);
+    scene->setSceneRect(0,0,WINDOW_WIDTH-5,WINDOW_HEIGHT-10);
 
-
-    QBrush brush;
-    brush.setTextureImage(pictures->getImage("background"));
-
-
-    scene->setBackgroundBrush(brush);
 
 
     QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("NUMBERS"));
@@ -77,51 +75,14 @@ void Game::showMenu(){
 
 void Game::showGame(){
     scene->clear();
-
-    scene->setSceneRect(0,0,WINDOW_WIDTH - 20,MAX_HEIGHT);
-
-
-    QBrush brush;
-    brush.setTextureImage(pictures->getImage("background"));
-
-
-    scene->setBackgroundBrush(brush);
-
-
-
-    Score *score = new Score();
-    score->setPos(300,0);
-
-    Timer *timer = new Timer();
-    timer->setPos(430,0);
-
-    FieldItem *field = new FieldItem(pictures); // Hm: mb wrong way, but...
-
-    Button *updateButton = new Button(QString("Update"), 50, 20);
-    Button *delButton = new Button(QString("Delete"), 50, 20);
-    Button *helpButton = new Button(QString("Help"),50,20);
-
-
-
-    updateButton->setPos(60,0);
-    delButton->setPos(120,0);
-    helpButton->setPos(180,0);
-
-
-    connect(field,SIGNAL(valueChanged(int)),score,SLOT(increase(int)));
-    connect(updateButton,SIGNAL(clicked()),field,SLOT(addCells()));
-    connect(delButton,SIGNAL(clicked()),field,SLOT(delRow()));
-    connect(helpButton,SIGNAL(clicked()),field,SLOT(help()));
-
-    scene->addItem(field);
-    scene->addItem(updateButton);
-    scene->addItem(delButton);
-    scene->addItem(helpButton);
-    scene->addItem(score);
-    scene->addItem(timer);
-
-    setScene(scene);
+    setScene(gamescene);
 }
+
+void Game::showGameOver(){
+    setScene(gamescene);
+
+}
+
 
 Game::~Game(){
     delete scene;

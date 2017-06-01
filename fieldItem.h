@@ -21,6 +21,9 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
+    void moveUp();
+    void moveDown();
+
 public slots:
     void help();
     void addCells();
@@ -34,6 +37,8 @@ protected:
 
 
 private:
+    int height;
+
     QImage getFieldImage();
     Field *field;
     GameManager *gm;

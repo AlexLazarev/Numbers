@@ -9,6 +9,8 @@ FieldItem::FieldItem(Images *p) : pictures(p)
     field->mixNumbers(11);
     gm = new GameManager(field);
 
+    height = WINDOW_HEIGHT;
+
 }
 
 FieldItem::~FieldItem(){
@@ -18,7 +20,7 @@ FieldItem::~FieldItem(){
 }
 
 QRectF FieldItem::boundingRect() const{
-    return QRectF(0,0,WINDOW_WIDTH,MAX_HEIGHT);
+    return QRectF(0,0,WINDOW_WIDTH, height);
 }
 
 
@@ -32,9 +34,8 @@ void FieldItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
-
-    int x = event->scenePos().x(); // convert to int from float
-    int y = event->scenePos().y();
+    int x = event->pos().x();
+    int y = event->pos().y();
 
     gm->step(QPoint(x,y));
 
@@ -45,16 +46,22 @@ void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 }
 
+
+
+
+
 void FieldItem::help(){
     gm->help();
 
-    qDebug() << field->getCountRow();
+
 
     update();
 }
 
 void FieldItem::addCells(){
     gm->addCells();
+
+    height = CELL_HEIGHT * field->getCountRow() + FIELD_Y;
 
     update();
 }
@@ -70,15 +77,15 @@ void FieldItem::delRow(){
 
 
 QImage FieldItem::getFieldImage(){
-    int countRow = field->getCountRow();
 
-    QImage image( FIELD_WIDTH, countRow*CELL_HEIGHT, QImage::Format_ARGB32 );
+
+    QImage image( FIELD_WIDTH, height, QImage::Format_ARGB32 );
 
     int cell;
     image.fill( 0 );
     QPainter painter(&image);
 
-    for( int i = 0; i < countRow; i++ )
+    for( int i = 0; i < field->getCountRow(); i++ )
         for( int j = 0; j < COUNT_COLUMN; j++ ) {
             cell = field->getCell(i,j);
 
@@ -102,8 +109,8 @@ QImage FieldItem::getFieldImage(){
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("eight")); break;
             case 9:
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("nine")); break;
-            case -1:
-                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("crossed")); break;
+           // case -1:
+               // painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, pictures->getImage("crossed")); break;
             default:
                 break;
 
@@ -140,6 +147,17 @@ QImage FieldItem::getFieldImage(){
 
 
     return image;
+}
+
+
+void FieldItem::moveUp(){
+    if(pos().y() + height > WINDOW_HEIGHT)
+    moveBy(0,-50);
+}
+
+void FieldItem::moveDown(){
+    if(pos().y() < 0)
+         moveBy(0,50);
 }
 
 

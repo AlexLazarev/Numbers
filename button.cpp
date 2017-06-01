@@ -5,9 +5,6 @@
 Button::Button(QString name,int width, int height, QGraphicsItem *parent):QGraphicsRectItem(parent){
     setRect(0,0,width,height);
 
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkCyan);
-    setBrush(brush);
 
     text = new QGraphicsTextItem(name,this);
     int x = rect().width()/2 - text->boundingRect().width()/2;
@@ -25,15 +22,15 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event){
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event){
     Q_UNUSED(event);
 
-    brush.setColor(Qt::cyan);
-    setBrush(brush);
+
+    text->setOpacity(0.5);
 }
 
 void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
     Q_UNUSED(event);
 
-    brush.setColor(Qt::darkCyan);
-    setBrush(brush);
+
+    text->setOpacity(1);
 }
 
 Button::~Button(){

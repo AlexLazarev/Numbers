@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     game.cpp \
     score.cpp \
     timer.cpp \
-    fieldItem.cpp
+    fieldItem.cpp \
+    gamescene.cpp
 
 HEADERS  += \
     field.h \
@@ -42,7 +43,8 @@ HEADERS  += \
     game.h \
     score.h \
     timer.h \
-    fieldItem.h
+    fieldItem.h \
+    gamescene.h
 
 FORMS    += mainwindow.ui
 

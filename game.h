@@ -6,6 +6,7 @@
 
 
 #include "images.h"
+#include "gamescene.h"
 
 
 class Game : public QGraphicsView
@@ -17,13 +18,15 @@ public:
     Game(QWidget * parent = NULL);
     ~Game();
 
-public slots:
-    void showMenu();
 
+
+public slots:
+    void showMenu();  
     void showGame();
+    void showGameOver();
 
 private:
-
+    GameScene *gamescene;
     QGraphicsScene *scene;
     Images *pictures;
 };
