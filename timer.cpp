@@ -7,9 +7,9 @@
 Timer::Timer(QGraphicsItem *parent): QGraphicsTextItem(parent){
     timeCount = TIME_COUNT;
 
-    setPlainText(QString("Time: ") + QString::number(timeCount));
+    setPlainText(QString::number(timeCount));
     setDefaultTextColor(Qt::black);
-    setFont(QFont("Helvetica",20));
+    setFont(QFont("Helvetica",16));
     startTimer(1000);
 
 }
@@ -22,7 +22,7 @@ void Timer::decrease(){
 
     if(0 != timeCount){
         timeCount--;
-        setPlainText(QString("Time: ") + QString::number(timeCount));
+        setPlainText(QString::number(timeCount));
     }
 
 }

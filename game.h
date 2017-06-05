@@ -7,12 +7,11 @@
 
 #include "images.h"
 #include "gamescene.h"
-
+#include "menuscene.h"
 
 class Game : public QGraphicsView
 {
     Q_OBJECT
-
 
 public:
     Game(QWidget * parent = NULL);
@@ -27,7 +26,8 @@ public slots:
 
 private:
     GameScene *gamescene;
-    QGraphicsScene *scene;
-    Images *pictures;
+    MenuScene *menuscene;
+
+
 };
 

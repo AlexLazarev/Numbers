@@ -22,5 +22,7 @@
         <file>images/img/two.png</file>
         <file>images/img/one.png</file>
         <file>images/img/crossed.png</file>
+        <file>images/img/panel.png</file>
+        <file>images/img/timer.png</file>
     </qresource>
 </RCC>

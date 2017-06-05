@@ -12,7 +12,7 @@ class FieldItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    FieldItem(Images *p);
+    FieldItem();
     ~FieldItem();
 
     QRectF boundingRect() const;
@@ -39,10 +39,13 @@ protected:
 private:
     int height;
 
-    QImage getFieldImage();
+    QImage image;
+
+    void updateImage();
+
     Field *field;
     GameManager *gm;
-    Images *pictures;
+
 
 };
 

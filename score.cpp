@@ -9,8 +9,7 @@ Score::Score(QGraphicsItem *parent): QGraphicsTextItem(parent){
 
     setPlainText(QString("Score: ") + QString::number(scoreCount));
     setDefaultTextColor(Qt::black);
-    setFont(QFont("Helvetica",20));
-
+    setFont(QFont("Helvetica",16));
 
 }
 

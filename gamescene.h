@@ -5,11 +5,16 @@
 
 class GameScene : public QGraphicsScene
 {
-
+    Q_OBJECT
 public:
-    GameScene(QObject *parent = Q_NULLPTR);
+    GameScene(QObject *parent = 0);
 
     void wheelEvent(QGraphicsSceneWheelEvent *event);
+
+signals:
+    void toMenu();
+    void toGameOver();
+
 
 private:
      FieldItem *field;

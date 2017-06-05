@@ -4,7 +4,7 @@ const int WINDOW_WIDTH = 600;
 const int WINDOW_HEIGHT = 820;
 
 const int FIELD_X = 30;
-const int FIELD_Y = 30;
+const int FIELD_Y = 45;
 
 const int FIELD_WIDTH = 540;
 

@@ -21,9 +21,12 @@ void Images::load(){
    images.insert("eight",QImage(":/images/img/eight.png"));
    images.insert("nine",QImage(":/images/img/nine.png"));
 
+   images.insert("panel",QImage(":/images/img/panel.png"));
+   images.insert("timer",QImage(":/images/img/timer.png"));
    images.insert("background",QImage(":/images/backgroundP.jpg"));
 
    images.insert("crossed",QImage(":/images/img/crossed.png"));
+
 
    isLoaded = true;
 }
@@ -34,4 +37,9 @@ QImage& Images::getImage(const QString &imgName){
         throw 1;
 
     return i.value();
+}
+
+Images *Images::getInstance(){
+    static Images instance;
+    return &instance;
 }

@@ -12,6 +12,8 @@ public:
     void load();
     QImage &getImage(const QString& imgName);
 
+    static Images *getInstance();
+
 
 private:
     QMap<QString,QImage> images;
