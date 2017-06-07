@@ -7,7 +7,7 @@ class MenuScene : public QGraphicsScene
     Q_OBJECT
 
 public:
-    MenuScene(QObject *parent = 0);
+    MenuScene(QObject *parent = NULL);
 
 signals:
     void toGame();

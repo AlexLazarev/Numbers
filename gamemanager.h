@@ -9,10 +9,9 @@ public:
 
     void step(QPoint coordCell);
 
-    void delRow();
     void addCells();
     void help();
-
+    void backStep();
 
     bool getIsCroosed(); //XM
     bool getAIactive();
@@ -27,11 +26,13 @@ private:
     QPoint AIfirstIndex;
     QPoint AIsecondIndex;
 
+    QVector<QVector<int>> backMask;
 
     QPoint convertToIndex(const QPoint& pos );
     QPoint convertToIndex(int n);
 
     bool checkCorrect(QPoint index);
+    void compressField(int row);
 
     bool isFirstSelected;
     bool isCrossed;

@@ -9,7 +9,7 @@
 #include <QGraphicsPixmapItem>
 
 GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
-    setSceneRect(5,5,WINDOW_WIDTH-5, WINDOW_HEIGHT-10);
+    setSceneRect(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
 
 
     QBrush brush;
@@ -33,34 +33,45 @@ GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
     field = new FieldItem();
 
     Button *updateButton = new Button(QString("Update"), 50, 20);
-    Button *delButton = new Button(QString("Delete"), 50, 20);
     Button *helpButton = new Button(QString("Help"), 50, 20);
     Button *menuButton = new Button(QString("Menu"), 50, 20);
-
+    Button *backButton = new Button(QString("Back"), 50, 20);
 
 
     panel->setPos(0,0);
     menuButton->setPos(30,12);
     updateButton->setPos(100,12);
-    delButton->setPos(170,12);
+    backButton->setPos(170,12);
     helpButton->setPos(240,12);
 
 
+
     connect(field,SIGNAL(valueChanged(int)),score,SLOT(increase(int)));
+
+    connect(menuButton,SIGNAL(clicked()),timer,SLOT(pause())); // bred
+
+    connect(field,SIGNAL(gameOver()),this,SIGNAL(toGameOver()));
     connect(menuButton,SIGNAL(clicked()),this,SIGNAL(toMenu()));
     connect(updateButton,SIGNAL(clicked()),field,SLOT(addCells()));
-    connect(delButton,SIGNAL(clicked()),field,SLOT(delRow()));
     connect(helpButton,SIGNAL(clicked()),field,SLOT(help()));
+    connect(backButton,SIGNAL(clicked()),field,SLOT(back()));
 
     addItem(field);
     addItem(panel);
     addItem(menuButton);
     addItem(pixmapTimer);
     addItem(updateButton);
-    addItem(delButton);
+    addItem(backButton);
     addItem(helpButton);
     addItem(score);
     addItem(timer);
+}
+
+#include <QDebug>
+
+GameScene::~GameScene()
+{
+    qDebug() << "Destructor";
 }
 
 

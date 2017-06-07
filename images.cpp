@@ -10,7 +10,6 @@ void Images::load(){
     if(isLoaded)
         return;
 
-   images.insert("field",QImage(":/images/background.png"));
    images.insert("one",QImage(":/images/img/one.png"));
    images.insert("two",QImage(":/images/img/two.png"));
    images.insert("three",QImage(":/images/img/three.png"));
@@ -23,7 +22,7 @@ void Images::load(){
 
    images.insert("panel",QImage(":/images/img/panel.png"));
    images.insert("timer",QImage(":/images/img/timer.png"));
-   images.insert("background",QImage(":/images/backgroundP.jpg"));
+   images.insert("background",QImage(":/images/img/backgroundP.jpg"));
 
    images.insert("crossed",QImage(":/images/img/crossed.png"));
 

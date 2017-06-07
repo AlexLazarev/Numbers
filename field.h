@@ -12,9 +12,12 @@ public:
     int getCell( int x, int y ) const;
     int getCell(int n) const;
     void setCell( int x, int y, int cell );
-    int getFieldSize() const;
+    int getSize() const;
     int getCountRow() const;
 
+    QVector<int> getMask() const;
+
+    void setMask(const QVector<int> &mask);
 
     void addCell(int);
 

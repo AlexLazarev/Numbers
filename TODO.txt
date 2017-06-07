@@ -1,4 +1,6 @@
-1. Timer
-2. Score increase // static function increase. class score singleton. gm->graphicsfield->signal, in game slot check it and score->increase with Q_OBJECT
-3. Create AI
-4. GameOver Scene
+Q: about vector. Vector.size() == 2 -> gameoverscene
+
+TODO:
+1. add button "CONTINUE"
+2. add info(score,timer) to gameover
+

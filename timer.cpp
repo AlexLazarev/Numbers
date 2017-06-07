@@ -4,8 +4,7 @@
 #include <QFontDatabase>
 #include "defines.h"
 
-Timer::Timer(QGraphicsItem *parent): QGraphicsTextItem(parent){
-    timeCount = TIME_COUNT;
+Timer::Timer(QGraphicsItem *parent): isPause(false), timeCount(TIME_COUNT), QGraphicsTextItem(parent){
 
     setPlainText(QString::number(timeCount));
     setDefaultTextColor(Qt::black);
@@ -15,12 +14,16 @@ Timer::Timer(QGraphicsItem *parent): QGraphicsTextItem(parent){
 }
 
 void Timer::timerEvent(QTimerEvent *){
-    decrease();
+    if(!isPause)
+        decrease();
+}
+
+void Timer::pause(){
+    isPause = true;
 }
 
 void Timer::decrease(){
-
-    if(0 != timeCount){
+    if(timeCount != 0){
         timeCount--;
         setPlainText(QString::number(timeCount));
     }

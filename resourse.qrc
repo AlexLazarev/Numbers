@@ -1,17 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/background.png</file>
-        <file>images/full.png</file>
-        <file>images/four.png</file>
-        <file>images/three.png</file>
-        <file>images/two.png</file>
-        <file>images/one.png</file>
-        <file>images/eight.png</file>
-        <file>images/nine.png</file>
-        <file>images/seven.png</file>
-        <file>images/six.png</file>
-        <file>images/buttom_add.png</file>
-        <file>images/backgroundP.jpg</file>
         <file>images/img/five.png</file>
         <file>images/img/eight.png</file>
         <file>images/img/four.png</file>
@@ -24,5 +12,6 @@
         <file>images/img/crossed.png</file>
         <file>images/img/panel.png</file>
         <file>images/img/timer.png</file>
+        <file>images/img/backgroundP.jpg</file>
     </qresource>
 </RCC>

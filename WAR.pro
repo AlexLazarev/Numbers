@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     fieldItem.cpp \
     gamescene.cpp \
     panel.cpp \
-    menuscene.cpp
+    menuscene.cpp \
+    gameoverscene.cpp
 
 HEADERS  += \
     field.h \
@@ -48,9 +49,8 @@ HEADERS  += \
     fieldItem.h \
     gamescene.h \
     panel.h \
-    menuscene.h
-
-FORMS    += mainwindow.ui
+    menuscene.h \
+    gameoverscene.h
 
 RESOURCES += \
     resourse.qrc

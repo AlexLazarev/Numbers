@@ -14,7 +14,7 @@ void Field::mixNumbers(int amt){
     srand(time(0));
 
     for(int i = 0; i < amt; i++)
-        cell.push_back(rand()%9+1);
+        cell.push_back(rand()%9 +1);
 
 
 }
@@ -55,7 +55,7 @@ void Field::setCell(int x, int y, int num ){
         cell[n] = num;
 }
 
-int Field::getFieldSize() const {
+int Field::getSize() const {
     return cell.size();
 }
 
@@ -66,6 +66,16 @@ int Field::getCountRow() const {
         return cell.size()/COUNT_COLUMN;
 
     return cell.size()/COUNT_COLUMN+1;
+}
+
+QVector<int> Field::getMask() const{
+    return cell;
+}
+
+void Field::setMask(const QVector<int> &mask){
+
+
+    cell = mask;
 }
 
 

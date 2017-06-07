@@ -2,6 +2,7 @@
 #include <QDebug>
 GameManager::GameManager(Field *f) : field(f), isFirstSelected(false), AIactive(false)
 {
+    backMask.push_front(field->getMask());
 }
 
 
@@ -9,7 +10,7 @@ void GameManager::addCells(){
     QVector<int> newcell;
     int cell;
 
-    for(int i = 0; i < field->getFieldSize(); i++){
+    for(int i = 0; i < field->getSize(); i++){
         cell = field->getCell(i);
 
         if(cell == 0)
@@ -22,6 +23,8 @@ void GameManager::addCells(){
 
     for(auto i: newcell)
         field->addCell(i);
+
+    backMask.push_front(field->getMask());
 }
 
 void GameManager::help(){
@@ -32,14 +35,14 @@ void GameManager::help(){
 
     int firstCell, secondCell;
 
-    for(int i = 0; i < field->getFieldSize(); i++){
+    for(int i = 0; i < field->getSize(); i++){
         firstCell = field->getCell(i);
 
         if(firstCell == -1)
             continue;
 
         //vertical search
-        for(int j = i+1; j < field->getFieldSize(); j++){
+        for(int j = i+1; j < field->getSize(); j++){
 
             secondCell = field->getCell(j);
 
@@ -76,31 +79,41 @@ void GameManager::help(){
     }
 
     AIactive = false;
+
+}
+
+
+void GameManager::backStep(){
+
+    if(backMask.size() <= 1)
+        return;
+
+
+    backMask.pop_front(); // delete current stay
+
+    field->setMask(*backMask.begin()); // set previous state
 }
 
 
 
 
-void GameManager::delRow(){
-    int k;
 
-    for(int i = 0; i < field->getCountRow(); i++){
-        k = 0;
-        for(int j = 0; j < COUNT_COLUMN; j++){
-            if(field->getCell(i,j) == -1)
-                 k++;
-            else
-                break;
 
-            if(k == COUNT_COLUMN){
-                field->delRow(i);
-                i--;
-            }
+void GameManager::compressField(int row){
+    int k = 0;
+    for(int j = 0; j < COUNT_COLUMN; j++){
+        if(field->getCell(row,j) == -1)
+            k++;
+        else
+            break;
+
+        if(k == COUNT_COLUMN){
+            field->delRow(row);
         }
     }
+
+
 }
-
-
 
 
 void GameManager::step(QPoint coordCell){
@@ -123,8 +136,15 @@ void GameManager::step(QPoint coordCell){
                 //cells are crossed
                 field->setCell(index.x(),index.y(), -1);
                 field->setCell(preindex.x(),preindex.y(), -1);
-                isCrossed = true;
 
+                backMask.push_front(field->getMask());
+
+
+                compressField(index.x());
+                if(preindex.x() != index.x())
+                    compressField(preindex.x());
+
+                isCrossed = true;
                 AIactive = false;
             }       
         }
@@ -179,6 +199,7 @@ bool GameManager::checkCorrect(QPoint index){
 
    return true;
 }
+
 
 
 

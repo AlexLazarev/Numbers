@@ -1,6 +1,5 @@
 #pragma once
 #include <QPainter>
-#include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
 #include "field.h"
@@ -8,9 +7,10 @@
 #include "images.h"
 #include "score.h"
 
-class FieldItem : public QObject, public QGraphicsItem
+class FieldItem : public QGraphicsObject
 {
     Q_OBJECT
+
 public:
     FieldItem();
     ~FieldItem();
@@ -27,11 +27,11 @@ public:
 public slots:
     void help();
     void addCells();
-    void delRow();
+    void back();
 
 signals:
     void valueChanged(int);
-
+    void gameOver();
 
 protected:
 

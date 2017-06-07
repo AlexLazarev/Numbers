@@ -7,7 +7,8 @@ class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    GameScene(QObject *parent = 0);
+    GameScene(QObject *parent = NULL);
+    ~GameScene();
 
     void wheelEvent(QGraphicsSceneWheelEvent *event);
 

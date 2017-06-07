@@ -6,7 +6,7 @@
 FieldItem::FieldItem(){
 
     field = new Field();
-    field->mixNumbers(11);
+    field->mixNumbers(9);
     gm = new GameManager(field);
 
     updateImage();
@@ -75,6 +75,12 @@ void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     if(gm->getIsCroosed()){
         emit valueChanged(10);
         updateImage();
+
+        qDebug() << field->getSize();
+
+        if(field->getSize() == 0)
+            emit gameOver();
+
     }
 
     update();
@@ -95,20 +101,18 @@ void FieldItem::help(){
 void FieldItem::addCells(){
     gm->addCells();
 
-
     updateImage();
 
     update();
 }
 
-void FieldItem::delRow(){
-    gm->delRow();
+void FieldItem::back(){
+    gm->backStep();
 
     updateImage();
 
     update();
 }
-
 
 
 void FieldItem::updateImage(){
