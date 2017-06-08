@@ -1,6 +1,6 @@
 #include "Field.h"
 #include <QDebug>
-#include <time.h>
+
 Field::Field(){
 }
 
@@ -9,19 +9,31 @@ Field::~Field(){
 }
 
 
+void Field::init(QString mode){
+    cell.clear();
 
-void Field::mixNumbers(int amt){
-    srand(time(0));
+    if(mode == "CLASSIC")
+        for(int i = 0; i < COUNT_CELL; i++)
+            cell.push_back(CLASSIC_CELLS[i]);
 
-    for(int i = 0; i < amt; i++)
-        cell.push_back(rand()%9 +1);
-
+    else
+        if(mode == "RANDOM")
+        for(int i = 0; i < COUNT_CELL; i++)
+            cell.push_back(rand()%9+1);
 
 }
 
 void Field::delRow(int indexRow){
+
     cell.erase(cell.begin() + (indexRow*COUNT_COLUMN),
-               cell.begin() + (indexRow*COUNT_COLUMN+COUNT_COLUMN));
+         cell.begin() + (indexRow*COUNT_COLUMN+COUNT_COLUMN));
+    if(cell.size() < COUNT_COLUMN){
+        for(int i = 0; i < cell.size(); i++)
+            if(cell[i] != -1)
+                return;
+        cell.clear();
+    }
+
 }
 
 void Field::addCell(int c){
@@ -47,7 +59,7 @@ int Field::getCell(int n) const {
     return 0;
 }
 
-void Field::setCell(int x, int y, int num ){
+void Field::setCell(const int &x,const int &y,const int &num){
     int n = x * COUNT_COLUMN + y;
 
 
@@ -55,12 +67,12 @@ void Field::setCell(int x, int y, int num ){
         cell[n] = num;
 }
 
+
 int Field::getSize() const {
     return cell.size();
 }
 
 int Field::getCountRow() const {
-
 
     if(cell.size() % COUNT_COLUMN == 0)
         return cell.size()/COUNT_COLUMN;
@@ -68,13 +80,15 @@ int Field::getCountRow() const {
     return cell.size()/COUNT_COLUMN+1;
 }
 
+bool Field::isStalemate(){
+    return false;
+}
+
 QVector<int> Field::getMask() const{
     return cell;
 }
 
 void Field::setMask(const QVector<int> &mask){
-
-
     cell = mask;
 }
 

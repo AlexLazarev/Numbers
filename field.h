@@ -11,20 +11,21 @@ public:
     ~Field();
     int getCell( int x, int y ) const;
     int getCell(int n) const;
-    void setCell( int x, int y, int cell );
+
     int getSize() const;
     int getCountRow() const;
+    bool isStalemate();
 
     QVector<int> getMask() const;
 
     void setMask(const QVector<int> &mask);
+    void setCell(const int &x,const int &y,const int &cell );
+
 
     void addCell(int);
-
     void delRow(int);
 
-    void mixNumbers(int count);
-
+    void init(QString mode);
 private:
     QVector<int> cell;
 };

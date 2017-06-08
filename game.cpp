@@ -1,4 +1,5 @@
 #include "game.h"
+#include <time.h>
 #include <QGroupBox>
 #include "fieldItem.h"
 #include "button.h"
@@ -9,6 +10,7 @@
 #include "images.h"
 
 Game::Game(QWidget *parent):QGraphicsView(parent){
+   srand(time(0));
 
    setFixedSize(WINDOW_WIDTH,WINDOW_HEIGHT);
 
@@ -19,51 +21,53 @@ Game::Game(QWidget *parent):QGraphicsView(parent){
 
    menuscene = new MenuScene();
 
-
+   gamescene = new GameScene();
 
    gameoverscene = new GameOverScene();
 
    showMenu();
+
+   connect(menuscene,SIGNAL(toClassicGame()),this,SLOT(showClassicGame()));
+   connect(menuscene,SIGNAL(toRandomGame()),this,SLOT(showRandomGame()));
+   connect(menuscene,SIGNAL(toExit()),this,SLOT(close()));
+
+   connect(gamescene,SIGNAL(toMenu()),this,SLOT(showMenu()));
+   connect(gamescene,SIGNAL(toGameOver()),this,SLOT(showGameOver()));
+
+   connect(gameoverscene,SIGNAL(toMenu()),this,SLOT(showMenu()));
+   connect(gameoverscene,SIGNAL(toGame()),this,SLOT(showGame()));
 }
 
 void Game::showMenu(){
 
     setScene(menuscene);
 
-    connect(menuscene,SIGNAL(toGame()),this,SLOT(showNewGame()));
-    connect(menuscene,SIGNAL(toExit()),this,SLOT(close()));
-
 }
 
 
 
 void Game::showGame(){
-
     setScene(gamescene);
-
-    connect(gamescene,SIGNAL(toMenu()),this,SLOT(showMenu()));
-    connect(gamescene,SIGNAL(toGameOver()),this,SLOT(showGameOver()));
 }
 
-void Game::showNewGame(){
-    GameScene *gs = new GameScene();
-
-    gamescene = gs;
-
-    setScene(gs);
-
-    connect(gs,SIGNAL(toMenu()),this,SLOT(showMenu()));
-    connect(gs,SIGNAL(toGameOver()),this,SLOT(showGameOver()));
 
 
+void Game::showClassicGame(){
+    gamescene->init("CLASSIC");
+    setScene(gamescene);
 }
+
+void Game::showRandomGame(){
+    gamescene->init("RANDOM");
+    setScene(gamescene);
+}
+
 
 void Game::showGameOver(){
 
-    setScene(gameoverscene);
+    gameoverscene->init();
 
-    connect(gameoverscene,SIGNAL(toReplay()),this,SLOT(showNewGame()));
-    connect(gameoverscene,SIGNAL(toExit()),this,SLOT(close()));
+    setScene(gameoverscene);
 
 }
 

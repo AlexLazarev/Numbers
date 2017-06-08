@@ -12,7 +12,7 @@ class FieldItem : public QGraphicsObject
     Q_OBJECT
 
 public:
-    FieldItem();
+    FieldItem(QString mode);
     ~FieldItem();
 
     QRectF boundingRect() const;
@@ -23,6 +23,9 @@ public:
 
     void moveUp();
     void moveDown();
+
+    void init(QString mode);
+
 
 public slots:
     void help();

@@ -7,15 +7,14 @@
 class Images
 {
 public:
-    Images();
 
     void load();
     QImage &getImage(const QString& imgName);
 
     static Images *getInstance();
 
-
 private:
+    Images();
     QMap<QString,QImage> images;
     bool isLoaded;
 

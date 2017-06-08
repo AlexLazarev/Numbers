@@ -7,6 +7,9 @@ class GameManager
 public:
     GameManager(Field*);
 
+    void clear();
+
+
     void step(QPoint coordCell);
 
     void addCells();

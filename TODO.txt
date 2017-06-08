@@ -1,6 +1,5 @@
-Q: about vector. Vector.size() == 2 -> gameoverscene
-
 TODO:
 1. add button "CONTINUE"
-2. add info(score,timer) to gameover
+
+3. Realize replay (gameover)
 

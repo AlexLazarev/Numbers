@@ -9,11 +9,12 @@ public:
 
     int getScore() const;
 
+    void reset();
 public slots:
     void increase(int);
 
 
 private:
-    int scoreCount;
+    int m_score;
 };
 

@@ -1,8 +1,16 @@
 #include "gamemanager.h"
 #include <QDebug>
-GameManager::GameManager(Field *f) : field(f), isFirstSelected(false), AIactive(false)
-{
+GameManager::GameManager(Field *f) : field(f){
+}
+
+void GameManager::clear(){
+    isFirstSelected = false;
+    isCrossed = false;
+    AIactive = false;
+
+    backMask.clear();
     backMask.push_front(field->getMask());
+
 }
 
 

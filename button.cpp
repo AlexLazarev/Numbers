@@ -1,5 +1,5 @@
 #include "button.h"
-
+#include <QDebug>
 
 
 Button::Button(QString name,int width, int height, QGraphicsItem *parent):QGraphicsRectItem(parent){
@@ -34,5 +34,6 @@ void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
 }
 
 Button::~Button(){
+    qDebug() << "Button destructor";
     delete text;
 }

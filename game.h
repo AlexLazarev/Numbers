@@ -22,7 +22,8 @@ public slots:
     void showMenu();  
     void showGame();
 
-    void showNewGame();
+    void showClassicGame();
+    void showRandomGame();
 
     void showGameOver();
 

@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     gamescene.cpp \
     panel.cpp \
     menuscene.cpp \
-    gameoverscene.cpp
+    gameoverscene.cpp \
+    storage.cpp
 
 HEADERS  += \
     field.h \
@@ -50,7 +51,8 @@ HEADERS  += \
     gamescene.h \
     panel.h \
     menuscene.h \
-    gameoverscene.h
+    gameoverscene.h \
+    storage.h
 
 RESOURCES += \
     resourse.qrc

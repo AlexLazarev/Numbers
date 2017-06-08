@@ -10,7 +10,8 @@ public:
     MenuScene(QObject *parent = NULL);
 
 signals:
-    void toGame();
+    void toClassicGame();
+    void toRandomGame();
     void toExit();
 
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include <QGraphicsScene>
-
+#include <QGraphicsTextItem>
 
 class GameOverScene : public QGraphicsScene
 {
@@ -8,10 +8,13 @@ class GameOverScene : public QGraphicsScene
 
 public:
     GameOverScene(QObject *parent = NULL);
-
+    void init();
 signals:
-    void toReplay();
-    void toExit();
+    void toGame();
+    void toMenu();
 
+private:
+    QGraphicsTextItem *scoreText;
+    QGraphicsTextItem *timeText;
 };
 

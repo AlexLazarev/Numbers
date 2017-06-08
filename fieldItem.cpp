@@ -1,20 +1,28 @@
 #include "fieldItem.h"
 #include "defines.h"
 #include "field.h"
-#include <QDebug>
 
-FieldItem::FieldItem(){
+#include "storage.h"
 
-    field = new Field();
-    field->mixNumbers(9);
+FieldItem::FieldItem(QString mode){
+
+    field = new Field();  
     gm = new GameManager(field);
-
-    updateImage();
-
     height = WINDOW_HEIGHT;
 }
 
+
+void FieldItem::init(QString mode){
+
+    field->init(mode);
+
+    gm->clear();
+
+    updateImage();
+}
+
 FieldItem::~FieldItem(){
+    qDebug() << "Destructor FIELD";
     delete field;
     delete gm;
 
@@ -76,11 +84,9 @@ void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
         emit valueChanged(10);
         updateImage();
 
-        qDebug() << field->getSize();
-
-        if(field->getSize() == 0)
+        if(field->getSize() == 0){
             emit gameOver();
-
+        }
     }
 
     update();
@@ -151,8 +157,8 @@ void FieldItem::updateImage(){
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("eight")); break;
             case 9:
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("nine")); break;
-           // case -1:
-               // painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("crossed")); break;
+            case -1:
+                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("crossed")); break;
             default:
                 break;
             }

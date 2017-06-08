@@ -28,22 +28,26 @@ MenuScene::MenuScene(QObject *parent):QGraphicsScene(parent){
     titleText->setPos(tx,ty);
 
 
-    Button *playButton = new Button(QString("PLAY"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+    Button *playButton = new Button(QString("CLASSIC"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+    Button *randomButton = new Button(QString("RANDOM"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
     Button *exitButton = new Button(QString("EXIT"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 
     int bx = this->width()/2 - playButton->boundingRect().width()/2;
     int by = 260;
 
     playButton->setPos(bx,by);
-    exitButton->setPos(bx,by+80);
+    randomButton->setPos(bx,by+80);
+    exitButton->setPos(bx,by+160);
 
 
-    connect(playButton,SIGNAL(clicked()),this,SIGNAL(toGame()));
+    connect(playButton,SIGNAL(clicked()),this,SIGNAL(toClassicGame()));
+    connect(randomButton,SIGNAL(clicked()),this,SIGNAL(toRandomGame()));
     connect(exitButton,SIGNAL(clicked()),this,SIGNAL(toExit()));
 
 
     addItem(titleText);
     addItem(playButton);
+    addItem(randomButton);
     addItem(exitButton);
 
 }
