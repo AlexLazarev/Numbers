@@ -31,8 +31,8 @@ GameOverScene::GameOverScene(QObject *parent):QGraphicsScene(parent){
     scoreText->setFont(font);
     timeText->setFont(font);
 
-    Button *replayButton = new Button(QString("REPLAY"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
-    Button *menuButton = new Button(QString("MENU"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+    Button *replayButton = new Button(QString("REPLAY"), MENU_BUTTON_WIDTH/1.5, MENU_BUTTON_HEIGHT/1.5);
+    Button *menuButton = new Button(QString("MENU"), MENU_BUTTON_WIDTH/1.5, MENU_BUTTON_HEIGHT/1.5);
 
 
 
@@ -42,8 +42,8 @@ GameOverScene::GameOverScene(QObject *parent):QGraphicsScene(parent){
     scoreText->setPos(centre * 0.45, 250);
     timeText->setPos(centre * 0.45, 270);
 
-    replayButton->setPos(centre * 0.45, 300);
-    menuButton->setPos(centre * 1.05, 300);
+    replayButton->setPos(centre * 0.55, 330);
+    menuButton->setPos(centre * 1.15, 330);
 
 
     connect(replayButton,SIGNAL(clicked()),this,SIGNAL(toGame()));
@@ -61,6 +61,6 @@ GameOverScene::GameOverScene(QObject *parent):QGraphicsScene(parent){
 
 void GameOverScene::init(){
     scoreText->setPlainText(QString("Score : ") + QString::number(Storage::getInstance()->getScore()));
-    timeText->setPlainText(QString("Time  : ") + QString::number(Storage::getInstance()->getTime()));
+    timeText->setPlainText(QString("Time  : ") + (Storage::getInstance()->getTime()).toString("hh:mm:ss"));
 
 }

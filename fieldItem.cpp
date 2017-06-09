@@ -157,8 +157,8 @@ void FieldItem::updateImage(){
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("eight")); break;
             case 9:
                  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("nine")); break;
-            case -1:
-                painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("crossed")); break;
+            //case -1:
+              //  painter.drawImage( j * CELL_WIDTH, i * CELL_HEIGHT, Images::getInstance()->getImage("crossed")); break;
             default:
                 break;
             }

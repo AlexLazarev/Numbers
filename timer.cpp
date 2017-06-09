@@ -4,37 +4,35 @@
 #include <QFontDatabase>
 #include "defines.h"
 
-Timer::Timer(QGraphicsItem *parent): isPause(false), QGraphicsTextItem(parent){
+Timer::Timer(QGraphicsItem *parent): QGraphicsTextItem(parent){
 
 
     reset();
 
-    setPlainText(QString::number(m_time));
+    setPlainText(m_time.toString("hh:mm:ss"));
     setDefaultTextColor(Qt::black);
     setFont(QFont("Helvetica",16));
     startTimer(1000);
 
+
+
 }
 
 void Timer::timerEvent(QTimerEvent *){
-        increase();
+    increase();
+
 }
 
 void Timer::reset(){
-    m_time = 0;
-    setPlainText(QString::number(m_time));
-}
+    m_time.setHMS(0,0,0);
 
-void Timer::pause(){
-    isPause = true;
 }
 
 void Timer::increase(){
-    m_time++;
-    setPlainText(QString::number(m_time));
+    m_time = m_time.addSecs(1);
+    setPlainText(m_time.toString("hh:mm:ss"));
 }
 
-int Timer::getTime() const{
+QTime Timer::getTime() const{
     return m_time;
-
 }

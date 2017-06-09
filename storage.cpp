@@ -16,7 +16,7 @@ void Storage::setScore(const int &score){
     m_score = score;
 }
 
-void Storage::setTime(const int &time){
+void Storage::setTime(const QTime &time){
     m_time = time;
 }
 
@@ -33,7 +33,7 @@ QString Storage::getMode() const{
     return m_mode;
 }
 
-int Storage::getTime() const{
+QTime Storage::getTime() const{
     return m_time;
 }
 

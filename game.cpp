@@ -8,6 +8,7 @@
 
 #include "gamescene.h"
 #include "images.h"
+#include "storage.h"
 
 Game::Game(QWidget *parent):QGraphicsView(parent){
    srand(time(0));
@@ -47,7 +48,9 @@ void Game::showMenu(){
 
 
 void Game::showGame(){
+    gamescene->init(Storage::getInstance()->getMode());
     setScene(gamescene);
+
 }
 
 

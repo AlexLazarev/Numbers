@@ -77,7 +77,7 @@ void GameScene::init(QString mode){
 
     field->init(mode);
 
-
+    Storage::getInstance()->setMode(mode);
 }
 
 
