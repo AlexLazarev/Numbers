@@ -14,10 +14,10 @@ FieldItem::FieldItem(QString mode){
 
 void FieldItem::init(QString mode){
 
+    setPos(0,0);
+
     field->init(mode);
-
     gm->clear();
-
     updateImage();
 }
 
@@ -98,14 +98,18 @@ void FieldItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 
 void FieldItem::help(){
-    gm->help();
-
+    if(!gm->getAIactive())
+         if(gm->help())
+             emit valueChanged(-10);
 
     update();
 }
 
 void FieldItem::addCells(){
     gm->addCells();
+
+    if(field->getSize() > FIELD_LIMIT)
+        emit gameOver();
 
     updateImage();
 

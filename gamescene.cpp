@@ -9,7 +9,7 @@
 
 
 GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
-    setSceneRect(0,0,WINDOW_WIDTH, WINDOW_HEIGHT);
+    setSceneRect(0,0,WINDOW_WIDTH-3, WINDOW_HEIGHT-3);
 
 
     QBrush brush;
@@ -26,7 +26,7 @@ GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
     timer = new Timer();
     timer->setPos(500,5);
 
-    QGraphicsPixmapItem *pixmapTimer = new  QGraphicsPixmapItem(QPixmap(":/images/img/timer.png"));
+    QGraphicsPixmapItem *pixmapTimer = new  QGraphicsPixmapItem(QPixmap(":/images/img/clock.png"));
     pixmapTimer->setPos(470,5);
 
     field = new FieldItem("CLASSIC");
@@ -42,8 +42,6 @@ GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
     updateButton->setPos(100,12);
     backButton->setPos(170,12);
     helpButton->setPos(240,12);
-
-    connect(menuButton,SIGNAL(clicked()),timer,SLOT(pause())); // bred
 
 
     connect(field,       SIGNAL(valueChanged(int)), score,  SLOT(increase(int)));
@@ -62,6 +60,7 @@ GameScene::GameScene(QObject * parent):QGraphicsScene(parent){
     addItem(helpButton);
     addItem(score);
     addItem(timer);
+
 }
 
 

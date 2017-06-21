@@ -26,11 +26,14 @@ Game::Game(QWidget *parent):QGraphicsView(parent){
 
    gameoverscene = new GameOverScene();
 
+   loginwindow = new LoginWindow();
+
    showMenu();
 
    connect(menuscene,SIGNAL(toClassicGame()),this,SLOT(showClassicGame()));
    connect(menuscene,SIGNAL(toRandomGame()),this,SLOT(showRandomGame()));
    connect(menuscene,SIGNAL(toExit()),this,SLOT(close()));
+   connect(menuscene,SIGNAL(toLogin()),this,SLOT(showLoginWindow()));
 
    connect(gamescene,SIGNAL(toMenu()),this,SLOT(showMenu()));
    connect(gamescene,SIGNAL(toGameOver()),this,SLOT(showGameOver()));
@@ -65,6 +68,11 @@ void Game::showRandomGame(){
     setScene(gamescene);
 }
 
+void Game::showLoginWindow(){
+
+   loginwindow->exec();
+}
+
 
 void Game::showGameOver(){
 
@@ -79,6 +87,7 @@ Game::~Game(){
     delete gamescene;
     delete menuscene;
     delete gameoverscene;
+    delete loginwindow;
 
 }
 

@@ -8,7 +8,7 @@
 
 GameOverScene::GameOverScene(QObject *parent):QGraphicsScene(parent){
 
-    setSceneRect(0,0,WINDOW_WIDTH,WINDOW_HEIGHT);
+    setSceneRect(0,0,WINDOW_WIDTH-3,WINDOW_HEIGHT-3);
 
 
     QBrush brush;

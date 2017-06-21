@@ -35,9 +35,8 @@ void GameManager::addCells(){
     backMask.push_front(field->getMask());
 }
 
-void GameManager::help(){
-    // create 2 vector without -1. first of vertical, second of horizontal
-    // or not
+bool GameManager::help(){
+
 
     AIactive = true;
 
@@ -60,7 +59,7 @@ void GameManager::help(){
             if(firstCell == secondCell || (firstCell + secondCell) == 10){
                 AIfirstIndex = convertToIndex(i);
                 AIsecondIndex = convertToIndex(j);
-                return;
+                return true;
             }
             else
                 break;
@@ -77,7 +76,7 @@ void GameManager::help(){
             if(firstCell == secondCell || (firstCell + secondCell) == 10){
                 AIfirstIndex = convertToIndex(i);
                 AIsecondIndex = convertToIndex(j*COUNT_COLUMN + i%COUNT_COLUMN);
-                return;
+                return true;
             }
             else
                 break;
@@ -88,6 +87,7 @@ void GameManager::help(){
 
     AIactive = false;
 
+    return false;
 }
 
 
@@ -239,11 +239,11 @@ QPoint GameManager::getSellectedIndex() const{
     return QPoint(-1,-1);
 }
 
-bool GameManager::getIsCroosed(){
+bool GameManager::getIsCroosed() const{
     return isCrossed;
 }
 
-bool GameManager::getAIactive(){
+bool GameManager::getAIactive() const{
     return AIactive;
 }
 

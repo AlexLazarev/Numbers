@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +36,9 @@ SOURCES += main.cpp\
     panel.cpp \
     menuscene.cpp \
     gameoverscene.cpp \
-    storage.cpp
+    storage.cpp \
+    database.cpp \
+    loginwindow.cpp
 
 HEADERS  += \
     field.h \
@@ -52,7 +54,12 @@ HEADERS  += \
     panel.h \
     menuscene.h \
     gameoverscene.h \
-    storage.h
+    storage.h \
+    database.h \
+    loginwindow.h
 
 RESOURCES += \
     resourse.qrc
+
+FORMS += \
+    loginwindow.ui

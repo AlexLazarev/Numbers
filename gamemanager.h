@@ -13,11 +13,11 @@ public:
     void step(QPoint coordCell);
 
     void addCells();
-    void help();
+    bool help();
     void backStep();
 
-    bool getIsCroosed(); //XM
-    bool getAIactive();
+    bool getIsCroosed() const; //XM
+    bool getAIactive() const;
 
     QPoint getAIfirstIndex() const;
     QPoint getAIsecondIndex() const;

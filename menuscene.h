@@ -13,6 +13,6 @@ signals:
     void toClassicGame();
     void toRandomGame();
     void toExit();
-
+    void toLogin();
 };
 

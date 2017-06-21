@@ -13,5 +13,6 @@
         <file>images/img/panel.png</file>
         <file>images/img/timer.png</file>
         <file>images/img/backgroundP.jpg</file>
+        <file>images/img/clock.png</file>
     </qresource>
 </RCC>

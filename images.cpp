@@ -21,7 +21,7 @@ void Images::load(){
    images.insert("nine",QImage(":/images/img/nine.png"));
 
    images.insert("panel",QImage(":/images/img/panel.png"));
-   images.insert("timer",QImage(":/images/img/timer.png"));
+   images.insert("clock",QImage(":/images/img/clock.png"));
    images.insert("background",QImage(":/images/img/backgroundP.jpg"));
 
    images.insert("crossed",QImage(":/images/img/crossed.png"));

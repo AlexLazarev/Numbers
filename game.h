@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 
+#include "loginwindow.h"
 
 #include "gamescene.h"
 #include "menuscene.h"
@@ -24,10 +25,13 @@ public slots:
 
     void showClassicGame();
     void showRandomGame();
-
+    void showLoginWindow();
     void showGameOver();
 
 private:
+
+    LoginWindow *loginwindow;
+
     GameScene *gamescene;
     MenuScene *menuscene;
     GameOverScene *gameoverscene;
